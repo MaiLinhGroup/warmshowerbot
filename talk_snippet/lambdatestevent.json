@@ -1,0 +1,63 @@
+{
+    "messageVersion": "1.0",
+    "invocationSource": "FulfillmentCodeHook",
+    "userId": "user-1",
+    "sessionAttributes": {},
+    "bot": {
+      "name": "WarmShowerBotApp",
+      "alias": "$LATEST",
+      "version": "$LATEST"
+    },
+    "outputDialogMode": "Text",
+    "currentIntent": {
+      "name": "GetTeamMembers",
+      "slots": {
+        "teamName": "Aiden"
+      },
+      "confirmationStatus": "None"
+    }
+}
+
+{
+    "messageVersion": "1.0",
+    "invocationSource": "DialogCodeHook",
+    "userId": "user-1",
+    "sessionAttributes": {},
+    "bot": {
+      "name": "WarmShowerBotApp",
+      "alias": "$LATEST",
+      "version": "$LATEST"
+    },
+    "outputDialogMode": "Text",
+    "currentIntent": {
+      "name": "GiveFeedback",
+      "slots": {
+        "teamName": "Aiden",
+        "member": "Fabio",
+        "feedback": null
+      },
+      "confirmationStatus": "None"
+    }
+}
+
+{
+  "messageVersion": "1.0",
+  "invocationSource": "FulfillmentCodeHook",
+  "userId": "user-1",
+  "sessionAttributes": {},
+  "bot": {
+    "name": "WarmShowerBotApp",
+    "alias": "$LATEST",
+    "version": "$LATEST"
+  },
+  "outputDialogMode": "Text",
+  "currentIntent": {
+    "name": "GiveFeedback",
+      "slots": {
+        "teamName": "Aiden",
+        "member": "Fabio",
+        "feedback": "Best DV buddy ever!"
+      },
+      "confirmationStatus": "Confirmed"
+  }
+}
