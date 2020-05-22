@@ -1,8 +1,6 @@
-# Serverless directories
-.serverless
+# Pyenv
+.python-version
 
-# golang output binary directory
-bin
+.env
 
-# golang vendor (dependencies) directory
-vendor
+.DS_Store
