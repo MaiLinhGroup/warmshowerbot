@@ -15,7 +15,6 @@ app = Flask(__name__)
 slack_events_adapter = SlackEventAdapter(SLACK_SIGNING_SECRET, "/slack/events", app)
 slack_web_client = WebClient(token=SLACK_BOT_TOKEN)
 
-# TODO: replace in-mem storage with sqlite db
 warmshower_bot_sent = {}
 
 @app.route('/<name>')
@@ -45,10 +44,14 @@ def start_warmshower(user_id: str, channel: str):
 # Here we'll link the message callback to the 'message' event.
 @slack_events_adapter.on("message")
 def event_message(payload):
-    """Display the welcome message after receiving a message
+    """Display the welcome message after receiving a direct message
     that contains "start".
     """
     event = payload.get("event", {})
+
+    # Filter for DM with app only
+    if event.get("channel_type") != "im":
+        return
 
     channel_id = event.get("channel")
     user_id = event.get("user")
