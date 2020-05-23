@@ -9,7 +9,7 @@ class WarmshowerBot:
         self.icon_emoji = ":robot_face:"
         self.timestamp = ""
 
-    def get_message_payload(self):
+    def get_message_payload(self, user_name: str):
         return {
             "ts": self.timestamp,
             "channel": self.channel,
@@ -20,14 +20,14 @@ class WarmshowerBot:
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "Hi there! :wave:"
+                        "text": "Hi {}! :wave:".format(user_name)
                     }
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "I'm here to help you leaving some warm words about your colleagues right here within Slack. These are just a few things which you will be able to do:"
+                        "text": "I'm here to help you with leaving some warm words about your colleagues right here within Slack. These are just a few things which you will be able to do:"
                     }
                 },
                 {

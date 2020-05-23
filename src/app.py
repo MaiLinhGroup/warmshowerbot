@@ -25,8 +25,10 @@ def start_warmshower(user_id: str, channel: str):
     # Create a warmshower bot
     warmshower_bot = WarmshowerBot(channel)
 
+    user_name = slack_web_client.users_info(user=user_id)["user"]["real_name"]
+
     # Get the message payload
-    msg_payload = warmshower_bot.get_message_payload()
+    msg_payload = warmshower_bot.get_message_payload(user_name)
 
     # Post the welcome message in Slack
     response = slack_web_client.chat_postMessage(**msg_payload)
