@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 slackclient = "*"
 python-dotenv = "*"
+flask = "*"
+slackeventsapi = "*"
 
 [requires]
 python_version = "3.8"
