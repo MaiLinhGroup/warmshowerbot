@@ -34,7 +34,7 @@ class WarmshowerBot:
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "• Praise your colleagues anonymously with the command `/praise <username>` \n • Show all praise submitted for you with the command `/praise` \n • Get notified about a new praise for you"
+                        "text": "• Praise your colleagues anonymously with the command `/praise <@username>` \n • Show all praise submitted for you with the command `/warmshower` \n • Get notified about a new praise for you"
                     }
                 },
                 {
