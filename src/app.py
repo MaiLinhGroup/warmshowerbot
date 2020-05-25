@@ -17,9 +17,10 @@ slack_web_client = WebClient(token=SLACK_BOT_TOKEN)
 
 warmshower_bot_sent = {}
 
-@app.route('/<name>')
-def hello(name: str) -> str:
-    return "Hello {}!".format(name)
+@app.route('/praise', methods=['POST'])
+def hello():
+    return "Hello from Flask webserver!", 200
+
 
 def start_warmshower(user_id: str, channel: str):
     # Create a warmshower bot
@@ -67,4 +68,4 @@ if __name__ == "__main__":
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler())
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=80)
