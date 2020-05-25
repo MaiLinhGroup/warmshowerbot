@@ -1,8 +1,11 @@
+import database as db
+import json
 import logging
 import os
+import re
 
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, request, make_response
 from slack import WebClient
 from slackeventsapi import SlackEventAdapter
 from warmshower_bot import WarmshowerBot
@@ -19,7 +22,17 @@ warmshower_bot_sent = {}
 
 @app.route('/praise', methods=['POST'])
 def hello():
-    return "Hello from Flask webserver!", 200
+    text = request.form.get("text")
+    x = re.search("@[\w.]+" ,text)
+    user_id = x.group()[1:]
+    user_name = slack_web_client.users_info(user=user_id)["user"]["real_name"]
+    
+    conn = db.create_connection('app_data.db')
+    cur = conn.cursor()
+    if db.check_db_for_user(cur, user_id, user_name):
+        conn.commit()
+    
+    return "Ok let's write some warm words for {}".format(user_name), 200
 
 
 def start_warmshower(user_id: str, channel: str):
