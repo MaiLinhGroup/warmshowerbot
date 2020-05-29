@@ -21,7 +21,7 @@ slack_web_client = WebClient(token=SLACK_BOT_TOKEN)
 warmshower_bot_sent = {}
 
 @app.route('/praise', methods=['POST'])
-def hello():
+def praise():
     text = request.form.get("text")
     x = re.search("@[\w.]+" ,text)
     user_id = x.group()[1:]
