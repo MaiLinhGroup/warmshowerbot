@@ -4,6 +4,8 @@ The idea of the bot is to encourage users to give their peers, friends, colleagu
 
 ![Photo by Jon Tyson on Unsplash](assets/jon-tyson-BELycSEckCc-unsplash.jpg)
 
+*Credit: Photo by [Jon Tyson](https://unsplash.com/@jontyson) on [Unsplash](https://unsplash.com/)*
+
 # Versions
 **V.0.1.**
 - give praise to a person anonymously
