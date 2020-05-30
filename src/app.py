@@ -7,6 +7,7 @@ import re
 from dotenv import load_dotenv
 from flask import Flask, request, make_response
 from slack import WebClient
+from slack.errors import SlackApiError
 from slackeventsapi import SlackEventAdapter
 from warmshower_bot import WarmshowerBot
 
@@ -22,17 +23,25 @@ warmshower_bot_sent = {}
 
 @app.route('/praise', methods=['POST'])
 def praise():
+    reply = ""
     text = request.form.get("text")
     x = re.search("@[\w.]+" ,text)
-    user_id = x.group()[1:]
-    user_name = slack_web_client.users_info(user=user_id)["user"]["real_name"]
-    
-    conn = db.create_connection('app_data.db')
-    cur = conn.cursor()
-    if db.check_db_for_user(cur, user_id, user_name):
-        conn.commit()
-    
-    return "Ok let's write some warm words for {}".format(user_name), 200
+    if x is not None:
+        user_id = x.group()[1:]
+        try:
+            user_name = slack_web_client.users_info(user=user_id)["user"]["real_name"]
+        except SlackApiError as e:
+            # You will get a SlackApiError if "ok" is False
+            assert e.response["ok"] is False
+            assert e.response["error"]  # "user_not_found"
+            logger.debug(e)
+            reply = "Sorry, I don't know this user :( "
+        else:
+            db.add_user(user_id, user_name)
+            reply = "Ok let's write some warm words for {} :)".format(user_name)
+    else:
+        reply = "Sorry, can you try again with `/praise <@username>`?"
+    return reply, 200
 
 
 def start_warmshower(user_id: str, channel: str):
@@ -78,7 +87,7 @@ def event_message(payload):
 
 
 if __name__ == "__main__":
-    logger = logging.getLogger()
+    logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler())
     app.run(host='0.0.0.0', port=80)

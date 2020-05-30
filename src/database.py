@@ -1,36 +1,28 @@
 import sqlite3
+import datetime
+import logging
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
-def create_connection(db_file):
-    """ create a database connection to the SQLite database
-        specified by the db_file
-    :param db_file: database file
-    :return: Connection object or None
-    """
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-    except sqlite3.Error as e:
-        print(e)
+db_name = 'app_data.db'
 
-    return conn
-
-def write_praise_data(cursor, user_id, user_name):
+def write_praise_data(user_id, user_name):
     pass
     
+def add_user(user_id, user_name):
+    add_user_query = "INSERT OR IGNORE INTO users VALUES (?, ?, ?, ?)"
+    now = datetime.datetime.now()
 
-
-def check_db_for_user(cursor, user_id, user_name):
-    try:
-        cursor.execute("SELECT * FROM user WHERE user_id=?", user_id)
-        exists = cursor.fetchall()
-        if not exists:
-            cursor.execute("INSERT INTO user(user_id, user_name) VALUES (?,?)", user_id, user_name)
-        return True
-    except sqlite3.Error as e:
-        print(e)
-        return False
-
+    with sqlite3.connect(database=db_name) as conn:
+        cursor = conn.cursor()
+        try:
+            cursor.execute(add_user_query, (user_id, user_name, now, now))
+        except sqlite3.Error as e:
+            logging.error("SQLite ERROR: %s" % e)
+            raise
+        else:
+            conn.commit()
 
 
 if __name__ == "__main__":
