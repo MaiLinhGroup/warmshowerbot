@@ -85,7 +85,6 @@ def event_message(payload):
     if text and text.lower() == "start":
         return start_warmshower(user_id, channel_id)
 
-
 if __name__ == "__main__":
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)

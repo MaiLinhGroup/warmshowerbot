@@ -1,7 +1,7 @@
 import datetime
 import logging
 import os
-import sqlite3
+import sqlite3 as db
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -13,12 +13,14 @@ db_sql_path = os.path.abspath(os.path.join(
 
 
 def init():
-    with open(db_sql_path) as f, sqlite3.connect(db_path) as conn:
+    # Initalise the database by setup all the tables
+    # like described in the setup script at start up
+    with open(db_sql_path) as f, db.connect(db_path) as conn:
         cursor = conn.cursor()
         try:
             cursor.executescript(f.read())
-        except sqlite3.Error as e:
-            logging.error("SQLite ERROR: %s" % e)
+        except db.Error as e:
+            logging.error("DB ERROR: %s" % e)
             raise
         else:
             conn.commit()
@@ -32,17 +34,29 @@ def add_user(user_id, user_name):
                         VALUES (?, ?, ?)"""
     
     add_user_data = [None, user_id, user_name]
-
-    with sqlite3.connect(db_path) as conn:
+    with db.connect(db_path) as conn:
         cursor = conn.cursor()
         try:
             cursor.execute(add_user_query, add_user_data)
-        except sqlite3.Error as e:
-            logging.error("SQLite ERROR: %s" % e)
+        except db.Error as e:
+            logging.error("DB ERROR: %s" % e)
             raise
         else:
             conn.commit()
 
+def get_user(user_id):
+    with db.connect(db_path) as conn:
+        cursor = conn.cursor()
+        if user_id is not None:
+            cursor.execute("SELECT * FROM users WHERE slack_user_id = ?", (user_id,))
+        else:
+            cursor.execute("SELECT * FROM users")
+        users = cursor.fetchall()
+        return users
+        
 
 if __name__ == "__main__":
-    print("Create database to store app data.")
+    print("Database module")
+    init()
+    print("Current users:")
+    print(get_user(None))
