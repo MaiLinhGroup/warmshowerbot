@@ -20,29 +20,29 @@ class WarmshowerBot:
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "Hi {}! :wave:".format(user_name)
-                    }
+                        "text": "Hi {}! :wave:".format(user_name),
+                    },
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "I'm here to help you with leaving some warm words about your colleagues right here within Slack. These are just a few things which you will be able to do:"
-                    }
+                        "text": "I'm here to help you with leaving some warm words about your colleagues right here within Slack. These are just a few things which you will be able to do:",
+                    },
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "• Praise your colleagues anonymously with the command `/praise <@username>` \n • Show all praise submitted for you with the command `/warmshower` \n • Get notified about a new praise for you"
-                    }
+                        "text": "• Praise your colleagues anonymously with the command `/praise <@username>` \n • Show all praise submitted for you with the command `/warmshower` \n • Get notified about a new praise for you",
+                    },
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "Go ahead and try out one of the commands listed above! :grinning:"
-                    }
-                }
-            ]
+                        "text": "Go ahead and try out one of the commands listed above! :grinning:",
+                    },
+                },
+            ],
         }

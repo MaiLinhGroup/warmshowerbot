@@ -10,6 +10,7 @@ slackclient = "*"
 python-dotenv = "*"
 flask = "*"
 slackeventsapi = "*"
+black = "*"
 
 [requires]
 python_version = "3.8"

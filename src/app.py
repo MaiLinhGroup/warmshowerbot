@@ -21,11 +21,12 @@ slack_web_client = WebClient(token=SLACK_BOT_TOKEN)
 
 warmshower_bot_sent = {}
 
-@app.route('/praise', methods=['POST'])
+
+@app.route("/praise", methods=["POST"])
 def praise():
     reply = ""
     text = request.form.get("text")
-    x = re.search("@[\w.]+" ,text)
+    x = re.search("@[\w.]+", text)
     if x is not None:
         user_id = x.group()[1:]
         try:
@@ -64,6 +65,7 @@ def start_warmshower(user_id: str, channel: str):
         warmshower_bot_sent[channel] = {}
     warmshower_bot_sent[channel][user_id] = warmshower_bot
 
+
 # ============== Message Events ============= #
 # When a user sends a DM, the event type will be 'message'.
 # Here we'll link the message callback to the 'message' event.
@@ -85,8 +87,9 @@ def event_message(payload):
     if text and text.lower() == "start":
         return start_warmshower(user_id, channel_id)
 
+
 if __name__ == "__main__":
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler())
-    app.run(host='0.0.0.0', port=80)
+    app.run(host="0.0.0.0", port=80)

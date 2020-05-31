@@ -6,10 +6,10 @@ import sqlite3 as db
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-db_path = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), 'app_data.db'))
-db_sql_path = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), 'setup_database.sql'))
+db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "app_data.db"))
+db_sql_path = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "setup_database.sql")
+)
 
 
 def init():
@@ -25,14 +25,16 @@ def init():
         else:
             conn.commit()
 
+
 def write_praise_data(user_id, user_name):
     pass
-    
+
+
 def add_user(user_id, user_name):
     add_user_query = """INSERT OR IGNORE INTO users 
                         (id,slack_user_id,slack_user_name) 
                         VALUES (?, ?, ?)"""
-    
+
     add_user_data = [None, user_id, user_name]
     with db.connect(db_path) as conn:
         cursor = conn.cursor()
@@ -44,6 +46,7 @@ def add_user(user_id, user_name):
         else:
             conn.commit()
 
+
 def get_user(user_id):
     with db.connect(db_path) as conn:
         cursor = conn.cursor()
@@ -53,7 +56,7 @@ def get_user(user_id):
             cursor.execute("SELECT * FROM users")
         users = cursor.fetchall()
         return users
-        
+
 
 if __name__ == "__main__":
     print("Database module")
