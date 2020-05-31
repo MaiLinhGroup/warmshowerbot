@@ -1,4 +1,3 @@
-import database as db
 import json
 import logging
 import os
@@ -9,7 +8,8 @@ from flask import Flask, request, make_response
 from slack import WebClient
 from slack.errors import SlackApiError
 from slackeventsapi import SlackEventAdapter
-from warmshower_bot import WarmshowerBot
+from src.database import database as db
+from src.warmshower_bot import WarmshowerBot
 
 load_dotenv(verbose=True)
 SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
