@@ -7,3 +7,5 @@
 
 # SQLite database
 *.db
+
+.vscode
